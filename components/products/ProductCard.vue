@@ -7,10 +7,15 @@
     <span class="p-desc">{{ product.description }}</span>
     <div class="p-bottom">
       <span class="p-btn">
-        <a>
+        <a style="background: #ff4f5a; color: white" @click="confirmRemove">
           <i class="uil uil-trash" />
-          <span>Remove</span>
         </a>
+        <nuxt-link
+          style="background: #d2e3f7; color: black"
+          :to="`/products/${product._id}`"
+        >
+          <i class="uil uil-pen" />
+        </nuxt-link>
       </span>
       <span class="p-price">
         <span>{{ product.price }}$</span>
@@ -20,11 +25,40 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
     product: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    ...mapActions({
+      removeProduct: 'products/removeProduct',
+    }),
+    confirmRemove() {
+      this.$buefy.dialog.confirm({
+        cancelText: 'No',
+        confirmText: 'Yes',
+        message: 'Are you sure to delete this product?',
+        onConfirm: function () {
+          this.remove()
+        }.bind(this),
+      })
+    },
+    async remove() {
+      try {
+        this.$isLoading(true)
+        await this.removeProduct(this.product?._id)
+        this.$isLoading(false)
+      } catch (error) {
+        this.$isLoading(false)
+        const message = error.response
+          ? error.response.data.error
+          : error.message
+        this.$buefy.dialog.alert(message)
+      }
     },
   },
 }
@@ -48,6 +82,7 @@ export default {
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
+  padding: 16px;
   img {
     display: flex;
     width: 100%;
@@ -57,15 +92,17 @@ export default {
 }
 
 .p-title {
-  font-size: 1.5em;
-  font-weight: 700;
-  text-indent: 10px;
+  font-size: 1.2em;
+  font-weight: 900;
+  padding: 0 15px;
   box-sizing: border-box;
+  color: black;
 }
 
 .p-desc {
+  opacity: 0.7;
   font-size: 0.9em;
-  padding: 0px 10px;
+  padding: 0px 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -81,18 +118,21 @@ export default {
   display: flex;
   box-sizing: border-box;
   align-items: center;
-  padding: 5px 10px;
+  padding: 5px 15px;
   justify-content: space-between;
 }
 
 .p-btn {
-  border: 1px solid $main-border-color;
-  border-radius: 12px;
+  display: flex;
+  column-gap: 5px;
+}
+
+.p-btn a {
+  border-radius: 7px;
   display: flex;
   align-content: center;
   justify-content: center;
-  padding: 6px;
-  padding-right: 14px;
+  padding: 5px 7px;
   i {
     font-size: 1.1em;
   }
@@ -104,5 +144,6 @@ export default {
   font-size: 2em;
   display: flex;
   justify-content: flex-end;
+  color: black;
 }
 </style>

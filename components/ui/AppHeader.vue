@@ -3,7 +3,7 @@
   <div id="header">
     <!--BRAND-->
     <div id="brand" @click="$router.push('/')">
-      <img src="/logo-hr.svg" />
+      <img src="/logo.svg" />
     </div>
 
     <!--BURGER-->
@@ -27,11 +27,9 @@
 
     <!--HEADER RIGHT-->
     <div id="header-right">
-      <!--PROFILE PICTURE-->
-      <span id="pp" class="hr-item">
-        <span class="profile-image">
-          <img :src="$publicURL(pp)" />
-        </span>
+      <span class="profile-image">
+        <img :src="$publicURL(pp)" />
+        <span>{{ firstName }} {{ lastName }}</span>
       </span>
     </div>
   </div>
@@ -44,21 +42,34 @@ export default {
     ...mapGetters({
       userId: 'auth/userId',
       pp: 'auth/pp',
+      me: 'auth/me',
     }),
+    firstName() {
+      return this.me?.firstName
+    },
+    lastName() {
+      return this.me?.lastName
+    },
   },
 }
 </script>
 
 <style scoped lang="scss">
 .profile-image {
-  width: 45px;
   height: 45px;
   display: flex;
-  border-radius: 100%;
-  overflow: hidden;
-  border: 3px solid $primary-half-opacity;
-  outline: 5px solid $primary-min-opacity;
+  padding: 3px 10px;
+  border: 1px solid $main-border-color;
+  border-radius: 12px;
+  align-items: center;
+  column-gap: 5px;
+  font-size: 0.9em;
+  font-weight: 500;
+  color: black;
   img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
     object-fit: cover;
   }
 }

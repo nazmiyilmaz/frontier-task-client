@@ -1,7 +1,7 @@
 <template>
-  <div class="card login-card">
+  <div class="login-card">
     <span class="brand">
-      <img src="/logo-hr.svg" alt="storymental" />
+      <img src="/logo-hr.svg" />
     </span>
 
     <div v-if="error" class="error">
@@ -22,14 +22,12 @@
         <span class="inline">
           <b-input
             v-model="firstName"
-            icon="paragraph"
             type="text"
             placeholder="First Name"
             expanded
           />
           <b-input
             v-model="lastName"
-            icon="paragraph"
             type="text"
             placeholder="Last Name"
             expanded
@@ -37,14 +35,12 @@
         </span>
         <b-input
           v-model="username"
-          icon="user"
           type="text"
           placeholder="Username"
           expanded
         />
         <b-input
           v-model="password"
-          icon="key-skeleton"
           placeholder="Password"
           type="password"
           password-reveal
@@ -117,16 +113,17 @@ export default {
 
 <style scoped lang="scss">
 .login-card {
-  padding: 35px 30px;
-  background: rgb(255, 255, 255);
-  border-radius: 24px;
+  padding: 40px;
+  border-radius: 48px;
+  border: 1px solid $main-border-color;
+  background: white;
 }
 
 .button {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 14px;
   margin-top: 10px;
-  background: $primary;
+  background: #4f61ff;
   color: $white;
   height: 48px;
 }
@@ -137,7 +134,8 @@ export default {
 }
 
 .signup {
-  background: $dark;
+  background: #f2f2f6;
+  color: black;
 }
 
 .has-text-danger {
@@ -153,31 +151,30 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 12px 0;
   img {
     cursor: pointer;
     display: flex;
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     border-radius: 100%;
-    border: 4px solid $primary-half-opacity;
-    outline: 5px solid $primary-min-opacity;
     overflow: hidden;
     object-fit: cover;
     transition: 0.5s;
   }
   .placeholder {
     cursor: pointer;
-    width: 200px;
-    height: 200px;
+    background: #dddde9;
+    width: 180px;
+    height: 180px;
     border-radius: 100%;
-    border: 6px solid rgba(0, 0, 0, 0.05);
-    outline: 6px solid rgba(0, 0, 0, 0.02);
     display: flex;
     justify-content: center;
     align-items: center;
     transition: 0.5s;
     i {
       font-size: 3em;
+      color: white;
     }
   }
 
@@ -198,10 +195,10 @@ export default {
 .fields {
   display: flex;
   flex-direction: column;
-  row-gap: 8px;
+  row-gap: 12px;
   .inline {
     display: flex;
-    column-gap: 8px;
+    column-gap: 12px;
   }
 }
 
@@ -209,6 +206,7 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 15px;
   img {
     width: 60%;
   }
@@ -217,9 +215,8 @@ export default {
 .form-wr {
   display: flex;
   flex-direction: column;
-  column-gap: 20px;
-  row-gap: 20px;
-  padding: 20px 0px;
+  column-gap: 10px;
+  row-gap: 10px;
 }
 
 @media (max-width: 1000px) {

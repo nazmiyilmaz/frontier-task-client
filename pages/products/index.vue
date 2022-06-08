@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="top-bar">
-      <span class="page-title">Products</span>
+      <span class="page-title">
+        <span> Products </span>
+        <span style="text-indent: 10px; opacity: 0.4"> #{{ total }} </span>
+      </span>
       <nuxt-link to="/products/add" class="button">Add Product</nuxt-link>
     </div>
     <ProductGrid>
@@ -16,6 +19,7 @@ export default {
   computed: {
     ...mapGetters({
       products: 'products/products',
+      total: 'products/total',
     }),
   },
 }
@@ -26,5 +30,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.button {
+  width: 163px;
+  height: 54px;
+  background: #000000;
+  border-radius: 28px;
+  color: white;
 }
 </style>

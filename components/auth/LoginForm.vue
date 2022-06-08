@@ -1,5 +1,5 @@
 <template>
-  <div class="card login-card">
+  <div class="login-card">
     <div class="logo-cont">
       <img class="logo" src="/logo.svg" alt="storymental" />
       <span>Login</span>
@@ -10,18 +10,12 @@
     </div>
 
     <div class="my-3">
-      <b-input
-        v-model="username"
-        icon="user"
-        type="text"
-        placeholder="Username"
-      />
+      <b-input v-model="username" type="text" placeholder="Username" />
     </div>
 
     <div class="my-3">
       <b-input
         v-model="password"
-        icon="key-skeleton"
         placeholder="Password"
         type="password"
         password-reveal
@@ -34,7 +28,9 @@
 
     <div class="columns is-mobile pt-4">
       <div class="column is-narrow">
-        <nuxt-link to="/auth/forgot-password"> Forgot password? </nuxt-link>
+        <nuxt-link to="/auth/forgot-password" style="color: #aaaab6">
+          Forgot password?
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -75,8 +71,8 @@ export default {
 
 <style scoped lang="scss">
 .login-card {
-  padding: 30px 25px;
-  border-radius: 25px;
+  padding: 40px;
+  border-radius: 48px;
   border: 1px solid $main-border-color;
   background: white;
 }
@@ -88,9 +84,9 @@ export default {
 }
 .button {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 14px;
   margin-top: 10px;
-  background: $primary;
+  background: #4f61ff;
   color: $white;
   height: 48px;
 }
@@ -106,7 +102,8 @@ export default {
 }
 
 .signup {
-  background: $dark;
+  background: #f2f2f6;
+  color: black;
 }
 
 .has-text-danger {
@@ -127,8 +124,11 @@ export default {
   margin-bottom: 20px;
   row-gap: 20px;
   span {
-    font-weight: 700;
-    font-size: 2.5em;
+    color: black;
+    text-align: start;
+    width: 100%;
+    font-weight: 800;
+    font-size: 1.5em;
   }
   .logo {
     width: 100%;

@@ -109,6 +109,9 @@ export const getters = {
   pp(state) {
     return state?.me?.pp
   },
+  me(state) {
+    return state.me
+  },
 }
 
 const extractCookie = (cookies, key) => {

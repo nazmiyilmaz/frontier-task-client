@@ -26,7 +26,7 @@ export default {
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background: white;
+  background: #f2f2f6;
 }
 
 .inner {

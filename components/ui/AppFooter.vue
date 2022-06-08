@@ -63,7 +63,7 @@ export default {}
     display: flex;
     flex-direction: column;
     img {
-      filter: brightness(3);
+      filter: invert(1);
       margin-bottom: 10px;
       width: 200px;
     }

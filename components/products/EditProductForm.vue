@@ -3,7 +3,7 @@
     <div class="form-wr">
       <div class="p-image">
         <b-upload v-model="file" type="file" class="image-input">
-          <img v-if="image" :src="$publicURL(image)" alt="" />
+          <img v-if="draft.image" :src="$publicURL(draft.image)" alt="" />
           <span v-else class="placeholder">
             <i class="uil uil-image" />
           </span>
@@ -12,11 +12,21 @@
 
       <div class="fields">
         <div class="inline">
-          <b-input v-model="title" type="text" placeholder="Title" expanded />
-          <b-input v-model="price" type="number" placeholder="Price" expanded />
+          <b-input
+            v-model="draft.title"
+            type="text"
+            placeholder="Title"
+            expanded
+          />
+          <b-input
+            v-model="draft.price"
+            type="number"
+            placeholder="Price"
+            expanded
+          />
         </div>
         <b-input
-          v-model="description"
+          v-model="draft.description"
           placeholder="Description"
           type="textarea"
           expanded
@@ -26,29 +36,51 @@
     </div>
 
     <div class="btns">
-      <button class="button" expanded @click.prevent="add">Add Product</button>
+      <button class="button" expanded @click.prevent="update">
+        Save Changes
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      price: null,
-      image: null,
+      draft: {
+        price: null,
+        image: null,
+        title: null,
+        description: null,
+      },
       file: null,
-      title: null,
-      description: null,
     }
+  },
+  async fetch() {
+    try {
+      this.$isLoading(true)
+      await this.getSingleProduct(this.productId)
+      this.load()
+      this.$isLoading(false)
+    } catch (error) {
+      this.$isLoading(false)
+    }
+  },
+  computed: {
+    ...mapGetters({
+      product: 'products/product',
+    }),
+    productId() {
+      return this.$route.params.productId
+    },
   },
   watch: {
     async file() {
       try {
         this.$isLoading(true)
         const id = await this.upload(this.file)
-        this.image = id
+        this.draft.image = id
         this.$isLoading(false)
       } catch (error) {
         this.error = error.response ? error.response.data.error : error.message
@@ -58,25 +90,35 @@ export default {
   },
   methods: {
     ...mapActions({
-      addProduct: 'products/addProduct',
+      updateProduct: 'products/updateProduct',
       upload: 'resources/upload',
+      getSingleProduct: 'products/getSingleProduct',
     }),
-    async add() {
+    async update() {
       try {
         this.$isLoading(true)
-        const payload = {
-          title: this.title,
-          description: this.description,
-          image: this.image,
-          price: this.price,
+        const props = {
+          productId: this.productId,
+          payload: {
+            title: this.draft.title,
+            description: this.draft.description,
+            image: this.draft.image,
+            price: this.draft.price,
+          },
         }
-        await this.addProduct(payload)
+        await this.updateProduct(props)
         this.$isLoading(false)
         this.$router.push(`/products`)
       } catch (error) {
         this.error = error.response ? error.response.data.error : error.message
         this.$isLoading(false)
       }
+    },
+    load() {
+      this.draft.title = this.product.title
+      this.draft.description = this.product.description
+      this.draft.image = this.product.image
+      this.draft.price = this.product.price
     },
   },
 }
