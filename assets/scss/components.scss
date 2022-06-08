@@ -1,0 +1,23 @@
+// CUSTOM CONTAINER
+.custom-container {
+  margin-left: 120px;
+  margin-right: 120px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  transition: 0.5s;
+  display: block;
+  width: 100%;
+  height: 100%;
+  @media (max-width: 1200px) {
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-top: 20px;
+    transition: 0.5s;
+  }
+  @media (max-width: 1000px) {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 10px;
+    transition: 0.5s;
+  }
+}
