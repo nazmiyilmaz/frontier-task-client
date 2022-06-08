@@ -4,6 +4,7 @@ export const state = () => ({
   token: null,
   userId: null,
   username: null,
+  me: null,
 })
 
 export const mutations = {
@@ -25,6 +26,12 @@ export const mutations = {
 }
 
 export const actions = {
+  // GET ME
+  async getMe({ commit }) {
+    const url = '/auth/me'
+    const result = await this.$api.$get(url)
+    commit('me', result?.data)
+  },
   // LOGIN
   async login({ commit }, authData) {
     const result = await this.$api.$post('/auth/login', authData)
@@ -45,20 +52,11 @@ export const actions = {
   },
 
   // SIGNUP
-  async signup({ commit }, props) {
-    const { pp, payload } = props
-    // formData instance
-    const formData = new FormData()
-    // append pp
-    formData.append('file', pp)
-    // append other fields
-    for (const key of Object.keys(payload)) {
-      if (payload[key]) formData.append(`${key}`, payload[key])
-    }
+  async signup({ commit }, payload) {
     // url
     const url = `/auth/signup`
     // post data
-    await this.$api.$post(url, formData)
+    await this.$api.$post(url, payload)
   },
 
   // LOGOUT
@@ -107,6 +105,9 @@ export const getters = {
   },
   userId(state) {
     return state.userId
+  },
+  pp(state) {
+    return state?.me?.pp
   },
 }
 

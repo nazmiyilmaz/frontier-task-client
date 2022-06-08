@@ -1,7 +1,7 @@
 <template>
   <div class="card login-card">
     <span class="brand">
-      <img src="/brand/logo-hr.svg" alt="storymental" />
+      <img src="/logo-hr.svg" alt="storymental" />
     </span>
 
     <div v-if="error" class="error">
@@ -10,10 +10,10 @@
 
     <div class="form-wr">
       <div class="pp">
-        <b-upload v-model="pp" type="file" class="pp-input">
-          <img v-if="ppSrc" :src="ppSrc" alt="" />
+        <b-upload v-model="file" type="file" class="pp-input">
+          <img v-if="pp" :src="$publicURL(pp)" alt="" />
           <span v-else class="placeholder">
-            <i class="uil uil-camera-plus" />
+            <i class="uil uil-user" />
           </span>
         </b-upload>
       </div>
@@ -66,8 +66,8 @@ import { mapActions } from 'vuex'
 export default {
   data() {
     return {
-      ppSrc: null,
       pp: null,
+      file: null,
       firstName: null,
       lastName: null,
       username: null,
@@ -76,19 +76,22 @@ export default {
     }
   },
   watch: {
-    pp() {
-      if (FileReader && this.pp) {
-        const fr = new FileReader()
-        fr.onload = function () {
-          this.ppSrc = fr.result
-        }.bind(this)
-        fr.readAsDataURL(this.pp)
+    async file() {
+      try {
+        this.$isLoading(true)
+        const id = await this.upload(this.file)
+        this.pp = id
+        this.$isLoading(false)
+      } catch (error) {
+        this.error = error.response ? error.response.data.error : error.message
+        this.$isLoading(false)
       }
     },
   },
   methods: {
     ...mapActions({
       signup: 'auth/signup',
+      upload: 'resources/upload',
     }),
     async send() {
       try {
@@ -98,7 +101,7 @@ export default {
           password: this.password,
           firstName: this.firstName,
           lastName: this.lastName,
-          pp: this.ppSrc,
+          pp: this.pp,
         }
         await this.signup(payload)
         this.$isLoading(false)
@@ -156,8 +159,8 @@ export default {
     width: 200px;
     height: 200px;
     border-radius: 100%;
-    border: 4px solid rgba(255, 138, 65, 0.6);
-    outline: 5px solid rgba(255, 138, 65, 0.3);
+    border: 4px solid $primary-half-opacity;
+    outline: 5px solid $primary-min-opacity;
     overflow: hidden;
     object-fit: cover;
     transition: 0.5s;
@@ -167,9 +170,8 @@ export default {
     width: 200px;
     height: 200px;
     border-radius: 100%;
-    border: 4px solid rgba(0, 0, 0, 0.2);
-    outline: 4px solid rgba(0, 0, 0, 0.1);
-    background: rgb(237, 237, 237);
+    border: 6px solid rgba(0, 0, 0, 0.05);
+    outline: 6px solid rgba(0, 0, 0, 0.02);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -183,8 +185,8 @@ export default {
   .placeholder {
     &:hover {
       transition: 0.5s;
-      border-color: rgba(255, 138, 65, 0.6);
-      outline-color: rgba(255, 138, 65, 0.3);
+      border-color: $primary-half-opacity;
+      outline-color: $primary-min-opacity;
     }
   }
 
@@ -194,7 +196,6 @@ export default {
 }
 
 .fields {
-  max-width: 320px;
   display: flex;
   flex-direction: column;
   row-gap: 8px;
@@ -215,6 +216,7 @@ export default {
 
 .form-wr {
   display: flex;
+  flex-direction: column;
   column-gap: 20px;
   row-gap: 20px;
   padding: 20px 0px;

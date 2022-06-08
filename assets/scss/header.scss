@@ -1,0 +1,219 @@
+@import 'variables.scss';
+
+// general
+$transition-duration: 0.5s;
+
+// header
+$header-bg: $light;
+$header-item-color: $dark;
+
+// profile picture
+$pp-bg: $white;
+
+// CONTENT
+#content {
+  transition: $transition-duration;
+  width: 100%;
+  margin-top: $header-height;
+  min-height: 100vh;
+  display: flex;
+}
+
+// HEADER
+#header {
+  position: fixed;
+  top: 0;
+  z-index: 9999999;
+  height: $header-height;
+  width: 100%;
+  background: $white;
+  border-bottom: 1px solid #eaeefb;
+  display: flex;
+  align-items: center;
+
+  #header-right {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    justify-content: center;
+  }
+  .hr-item {
+    margin: 0px 5px;
+  }
+}
+
+// HEADER MENU
+#header-menu {
+  transition: 0.5s;
+  display: flex;
+  align-items: center;
+  .menu-item {
+    font-weight: 500;
+    .menu-item-lb {
+      padding: 13px 18px;
+      font-size: 1em;
+      color: $dark;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      &:hover {
+        color: $dark;
+        background-color: rgba(228, 248, 255, 0.664);
+        transition: 0.5s;
+      }
+    }
+  }
+  #others {
+    &:hover {
+      #menu-dd-items {
+        display: flex;
+      }
+    }
+  }
+  #menu-dd-items {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid $main-border-color;
+    border-radius: 14px;
+    overflow: hidden;
+    flex-direction: column;
+    padding: 10px;
+    .menu-dd-item {
+      width: 100%;
+      font-size: 1em;
+      padding: 8px 15px;
+      color: $dark;
+      border-radius: 12px;
+      &:hover {
+        color: $dark;
+        background-color: rgba(228, 248, 255, 0.664);
+        transition: 0.5s;
+      }
+    }
+  }
+}
+
+// BRAND
+#brand {
+  transition: $transition-duration;
+  display: flex;
+  align-items: center;
+  height: $header-height;
+  padding: 0 10px;
+  cursor: pointer;
+  img {
+    width: 165px;
+    background-color: $white;
+    transition: $transition-duration;
+  }
+}
+
+// BURGER
+#burger {
+  display: none;
+  height: 56px;
+  width: 56px;
+  cursor: pointer;
+  margin: auto 5px;
+
+  &:hover {
+    border-radius: 100%;
+    background: $primary-light;
+  }
+  i {
+    font-size: 2.5em;
+  }
+}
+
+// PROFILE PICTURE
+#pp {
+  cursor: pointer;
+  width: $header-height - 15px;
+  height: $header-height - 15px;
+  #pp-dropdown {
+    display: block;
+    position: absolute;
+    min-width: 100px;
+    border-radius: 12px;
+    top: $header-height - 10px;
+    right: 0px;
+    z-index: 1000;
+    font-weight: 700;
+  }
+  .hidden {
+    display: none !important;
+  }
+}
+
+@media (max-width: 800px) {
+  #brand {
+    display: none;
+  }
+  #burger {
+    display: block;
+  }
+  #burger-close {
+    display: flex;
+  }
+
+  // HEADER MENU
+  #header-menu {
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background: $secondary;
+    width: 0px;
+    z-index: 999999;
+    .menu-item {
+      width: 250px;
+      .menu-item-lb {
+        font-weight: 900;
+        padding: 3vh 15px;
+        font-size: 1.4em;
+        color: $white;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        position: relative;
+        &:hover {
+          color: $dark;
+          background-color: transparent;
+          padding-left: 25px;
+          transition: 0.5s;
+        }
+      }
+    }
+    #others .menu-item-lb {
+      display: none;
+    }
+    #menu-dd-items {
+      display: flex;
+      flex-direction: column;
+      position: unset;
+      background-color: transparent;
+      border: none;
+      padding: 0px;
+      .menu-dd-item {
+        font-weight: 900;
+        width: 250px;
+        font-size: 1.4em;
+        padding: 3vh 15px;
+        color: $white;
+        &:hover {
+          color: $dark;
+          background-color: transparent;
+          padding-left: 25px;
+          transition: 0.5s;
+        }
+      }
+    }
+    &.is-open {
+      width: 300px !important;
+    }
+  }
+}

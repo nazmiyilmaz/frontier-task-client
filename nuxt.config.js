@@ -9,7 +9,7 @@ export default {
       { hid: 'description', name: 'description', content: '' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/brand/logo-min.png' },
+      { rel: 'icon', type: 'image/x-icon', href: '/logo.svg' },
       {
         rel: 'stylesheet',
         href: 'https://unicons.iconscout.com/release/v2.1.11/css/unicons.css',
@@ -37,6 +37,7 @@ export default {
     // custom
     '~assets/scss/styles.scss',
     '~assets/scss/components.scss',
+    '~assets/scss/header.scss',
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins

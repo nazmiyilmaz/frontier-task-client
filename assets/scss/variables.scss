@@ -1,11 +1,11 @@
 @import '~bulma/sass/utilities/functions';
 
 // COLORS
-$primary: #ff8b41;
-$secondary: #ff0048;
-$secondary-half-opacity: #ff226181;
-$primary-half-opacity: rgba(255, 111, 63, 0.5);
-$primary-min-opacity: rgba(255, 111, 63, 0.2);
+$primary: rgb(99, 160, 247);
+$secondary: rgb(23, 98, 194);
+$secondary-half-opacity: rgba(23, 97, 194, 0.5);
+$primary-half-opacity: rgba(99, 161, 247, 0.5);
+$primary-min-opacity: rgba(99, 161, 247, 0.2);
 $light: rgb(247, 239, 236);
 $warning: #f0b619;
 $warning-light: findLightColor($warning);
@@ -14,12 +14,12 @@ $success: #40cd95;
 $success-dark: findDarkColor($success);
 $success-light: #b4eed7;
 $white: #ffffff;
-$dark: #19132c;
+$dark: #082343;
 $grey: rgb(195, 198, 209);
 $danger: #c9122b;
 $danger-dark: findDarkColor($danger);
 $danger-light: #ffd4d4;
-$link: rgb(165, 52, 14);
+$link: rgba(45, 47, 131, 0.7);
 $info: #4ca8da;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);

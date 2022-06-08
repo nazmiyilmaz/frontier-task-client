@@ -1,10 +1,6 @@
 <template>
   <div class="outer">
     <b-loading :active="isLoading" :is-full-page="true" :can-cancel="false" />
-    <!--STAR ANIMATION-->
-    <div class="stars-outer">
-      <div id="stars-sky" />
-    </div>
     <!--CONTENT-->
     <div class="inner">
       <nuxt />
@@ -21,22 +17,16 @@ export default {
       isLoading: 'isLoading',
     }),
   },
-  mounted() {
-    window.$stars()
-  },
 }
 </script>
 
 <style scoped lang="scss">
-.stars-outer {
-  position: absolute;
-}
-
 .outer {
   display: grid;
   width: 100%;
   height: 100%;
   min-height: 100vh;
+  background: white;
 }
 
 .inner {

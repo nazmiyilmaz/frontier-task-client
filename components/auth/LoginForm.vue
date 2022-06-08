@@ -1,7 +1,8 @@
 <template>
   <div class="card login-card">
     <div class="logo-cont">
-      <img class="logo" src="/brand/logo.svg" alt="storymental" />
+      <img class="logo" src="/logo.svg" alt="storymental" />
+      <span>Login</span>
     </div>
 
     <div v-if="error" class="error">
@@ -49,11 +50,6 @@ export default {
       error: null,
     }
   },
-  computed: {
-    redirectUrl() {
-      return this.$route.query?.redirect
-    },
-  },
   methods: {
     ...mapActions({
       login: 'auth/login',
@@ -80,9 +76,9 @@ export default {
 <style scoped lang="scss">
 .login-card {
   padding: 30px 25px;
-  background: rgba(255, 255, 255, 1);
-  box-shadow: none !important;
   border-radius: 25px;
+  border: 1px solid $main-border-color;
+  background: white;
 }
 .login-lb {
   text-align: center;
@@ -125,10 +121,17 @@ export default {
 .logo-cont {
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  row-gap: 20px;
+  span {
+    font-weight: 700;
+    font-size: 2.5em;
+  }
   .logo {
-    width: 60%;
+    width: 100%;
     image-rendering: -moz-crisp-edges;
   }
 }
